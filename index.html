@@ -1,42 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Birthday Wishes</title>
 
   <!-- Poppins Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
     body {
-      min-height: 100vh;
+      margin: 0;
+      height: 100vh;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #f5f5f5;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      color: #f5f5f5;
     }
 
-    .container {
-      max-width: 900px;
+    #text {
       text-align: center;
-    }
-
-    .line {
+      font-size: 1.4rem; /* enlarged font */
+      max-width: 90%;
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 1s ease forwards;
-      margin: 14px 0;
-      font-size: 1.1rem;
-      line-height: 1.7;
+      transition: opacity 1.2s ease-in-out;
+      line-height: 1.6;
     }
 
     .highlight {
@@ -44,94 +34,85 @@
       font-weight: 600;
     }
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .tap {
-      position: fixed;
-      bottom: 15px;
-      font-size: 0.85rem;
+    #tap {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
       opacity: 0.7;
     }
   </style>
 </head>
+<body>
 
-<body onclick="startMusic()">
+  <div id="text"></div>
+  <div id="tap">Tap anywhere to start music 🎵</div>
 
-  <div class="container">
-
-    <div class="line" style="animation-delay: 0s;">Today is <span class="highlight">10th April</span>..</div>
-
-    <div class="line" style="animation-delay: 1s;">
-      So ee roju mana class lo oka ammayii birthday..
-    </div>
-
-    <div class="line" style="animation-delay: 2s;">
-      So konchem naa wishes thanaki convey chesthaava pls..
-    </div>
-
-    <div class="line" style="animation-delay: 3s;">
-      <span class="highlight">Yevaro telusa neeku</span>
-    </div>
-
-    <div class="line" style="animation-delay: 4s;">
-      Naaku telisinantha varaku thanaki ZERO EGO
-    </div>
-
-    <div class="line" style="animation-delay: 5s;">
-      <span class="highlight">Ye</span> okarini mosam cheyadhu, chaala loyal.. Thanu..
-    </div>
-
-    <div class="line" style="animation-delay: 6s;">
-      <span class="highlight">A</span>nukunte thanakana best inkevaaru undaaru..
-    </div>
-
-    <div class="line" style="animation-delay: 7s;">
-      Asalu thanaki ego anedhi ZERO anipisthundhi naaku..
-    </div>
-
-    <div class="line" style="animation-delay: 8s;">
-      Aanandhanga frnds tho kalisi muchatlo petukovadam ante chaaala
-    </div>
-
-    <div class="line" style="animation-delay: 9s;">
-      Thana baadhanu chepi inkokarini yepudu baadhapetadhu..
-    </div>
-
-    <div class="line" style="animation-delay: 10s;">
-      To someone who is never selfish..
-    </div>
-
-    <div class="line" style="animation-delay: 11s;">
-      To someone who is always humble and kind
-    </div>
-
-    <div class="line" style="animation-delay: 12s;">
-      Wishing you a many more happy returns of the day Chaitanya 🥳🥳💐💐
-    </div>
-
-    <div class="line" style="animation-delay: 13s;">
-      And like always… Be happy.. Have that smile on your face.
-    </div>
-
-  </div>
-
-  <div class="tap">Tap anywhere to start music 🎵</div>
-
-  <audio id="bgm" loop>
-    <source src="Happy-Birthday-To-You-Ji.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="bgm" src="Happy-Birthday-To-You-Ji.mp3"></audio>
 
   <script>
-    function startMusic() {
-      const music = document.getElementById("bgm");
-      music.play();
-      document.body.onclick = null;
+    const lines = [
+      "Hey..!! Ee roju date yentho telusa..??",
+      "<span class='highlight'>Today is 10th April..</span>",
+      "So ee roju mana class lo oka ammayii birthday..",
+      "So konchem naa wishes thanaki convey chesthaava pls..",
+      "<span class='highlight'>Yevaro telusa neeku..</span>",
+      "Thanu..",
+      "Chuseki chaala silent gaa untundhi, but from",
+      "Heart chaala ante chaala manchidhi..",
+      "Aanandhanga frnds tho kalisi muchatlo petukovadam ante chaaala",
+      "Istam, andharu manchiga undaali ane korukuntundhi..",
+      "Thana baadhanu chepi inkokarini yeppudu baadhapetadhu..",
+      "Amazing character.. Totally different and matured",
+      "Naaku telisinantha varaku thanaki ZERO EGO",
+      "Ye okarini mosam cheyadhu, chaala loyal.. Thanu",
+      "Anukunte thanakana best inkevaaru undaaru..",
+      "To someone I have known for about a year..",
+      "To someone whom I have never seen on an angry mode..",
+      "To someone who is never selfish..",
+      "To someone who is always humble and kind..",
+      "To that one particular person who hasn't changed with time..",
+      "<span class='highlight'>Wishing you a many more happy returns of the day Chaitanya 🥳🥳💐💐</span>",
+      "May you be blessed with THE BEST things in your life..",
+      "May all your dreams come true.. Still a long way to go..",
+      "Health jaagratha..",
+      "Yeppudu ye vishayam gurinchi alochinchi low ga feel avaku..",
+      "Yedhi jarigina mana manchike jaruguthundhi ani positive gaa tisko..",
+      "And like always… Be happy.. Have that smile on your face.",
+      "Never let anything or anyone fade it away.",
+      "Ok na...",
+      "All the very best for ur life...",
+      "Be always strong..",
+      "Enjoy every single moment of ur life.."
+    ];
+
+    const textDiv = document.getElementById("text");
+    const audio = document.getElementById("bgm");
+    const tap = document.getElementById("tap");
+
+    let index = 0;
+    let started = false;
+
+    function showLine() {
+      if (index >= lines.length) return;
+
+      textDiv.innerHTML = lines[index];
+      textDiv.style.opacity = 1;
+
+      setTimeout(() => {
+        textDiv.style.opacity = 0;
+        index++;
+        setTimeout(showLine, 1200);
+      }, 3200); // reading time per line
     }
+
+    document.body.addEventListener("click", () => {
+      if (!started) {
+        started = true;
+        tap.style.display = "none";
+        audio.play();
+        showLine();
+      }
+    });
   </script>
 
 </body>
