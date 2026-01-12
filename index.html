@@ -2,126 +2,195 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Birthday Wishes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-body{
-  margin:0;
-  height:100vh;
-  background:url("background.jpeg") no-repeat center center fixed;
-  background-size:cover;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:'Poppins',sans-serif;
-  color:white;
-  overflow:hidden;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* dark overlay */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.45);
-  z-index:0;
+body {
+  background: url('background.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#container{
-  position:relative;
-  z-index:2;
-  text-align:center;
-  max-width:90%;
+/* ⭐ STARS */
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.line{
-  font-size:1.1rem;
-  line-height:1.6;
-  display:none;
-  white-space:pre-wrap;
+.star {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 12px white, 0 0 30px gold;
+  animation: floatStar linear infinite, twinkle 2.5s ease-in-out infinite;
 }
 
-/* typewriter cursor */
-.cursor::after{
-  content:"|";
-  animation:blink 1s infinite;
-}
-@keyframes blink{
-  50%{opacity:0;}
+@keyframes floatStar {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
 }
 
-/* glowing letters (C H A I T A N Y A) */
-.highlight{
-  font-weight:600;
-  color:#ffd700;
-  text-shadow:0 0 10px #ffd700,0 0 22px #ffcc00;
+@keyframes twinkle {
+  0%,100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }
 
-/* magical birthday line */
-.magic{
-  font-size:1.25rem;
-  animation:magicGlow 3s ease-in-out infinite;
-}
-@keyframes magicGlow{
-  0%{opacity:.6;text-shadow:0 0 6px #fff;}
-  50%{opacity:1;text-shadow:0 0 30px #ffd700;}
-  100%{opacity:.6;text-shadow:0 0 6px #fff;}
-}
-
-/* star sparkles */
-.star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  border-radius:50%;
-  opacity:.8;
-  animation:floatStar linear infinite;
-}
-@keyframes floatStar{
-  from{transform:translateY(0);opacity:.8;}
-  to{transform:translateY(-120vh);opacity:0;}
+/* ✨ SPARKLES */
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: gold;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 15px gold, 0 0 30px orange;
+  animation: sparkleMove 1.8s ease-out forwards;
 }
 
-/* final fade-out */
-.fade-out{
-  animation:fadeEnd 4s forwards;
-}
-@keyframes fadeEnd{
-  to{opacity:0;}
+@keyframes sparkleMove {
+  from {
+    transform: scale(1) translate(0,0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0) translate(var(--x), var(--y));
+    opacity: 0;
+  }
 }
 
-.tap{
-  position:fixed;
-  bottom:14px;
-  font-size:.8rem;
-  opacity:.7;
-  z-index:2;
+#container {
+  text-align: center;
+  color: white;
+  max-width: 90%;
+  z-index: 2;
+}
+
+#line {
+  font-size: 1.35rem;
+  line-height: 1.7;
+  opacity: 0;
+}
+
+/* ✨ TEXT EFFECTS */
+.glow {
+  text-shadow: 0 0 18px rgba(255,255,255,0.9);
+  animation: breathe 3s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%,100% { text-shadow: 0 0 12px rgba(255,255,255,0.6); }
+  50% { text-shadow: 0 0 26px rgba(255,255,255,1); }
+}
+
+.highlight {
+  color: gold;
+  font-weight: 600;
+  text-shadow: 0 0 20px gold, 0 0 40px orange;
+}
+
+/* 🎉 BIRTHDAY MAGIC */
+.magic {
+  font-size: 1.6rem;
+  color: #fff3b0;
+  text-shadow: 0 0 35px gold, 0 0 70px orange;
+  animation: magicEnter 2.5s ease-out forwards, magicPulse 2s ease-in-out infinite;
+}
+
+@keyframes magicEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.3) rotateX(90deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotateX(0deg);
+  }
+}
+
+@keyframes magicPulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+.fadeIn {
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fadeOut {
+  animation: fadeOut 1.5s ease forwards;
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<div id="container"></div>
-<div class="tap">Tap once anywhere to start 🎵</div>
+<div class="stars" id="stars"></div>
 
-<audio id="music" src="Happy-Birthday-To-You-Ji.mp3"></audio>
+<div id="container">
+  <div id="line"></div>
+</div>
+
+<audio id="bgm" src="Happy-Birthday-To-You-Ji.mp3" loop></audio>
 
 <script>
-// create stars
-for(let i=0;i<35;i++){
-  const s=document.createElement("div");
-  s.className="star";
-  s.style.left=Math.random()*100+"vw";
-  s.style.bottom="-"+Math.random()*100+"vh";
-  s.style.animationDuration=(20+Math.random()*20)+"s";
-  document.body.appendChild(s);
+/* ⭐ CREATE STARS */
+const stars = document.getElementById("stars");
+for (let i = 0; i < 70; i++) {
+  const s = document.createElement("div");
+  s.className = "star";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+  s.style.animationDuration = (6 + Math.random() * 6) + "s";
+  stars.appendChild(s);
 }
 
-const lines=[
+/* ✨ SPARKLES */
+function createSparkles() {
+  for (let i = 0; i < 40; i++) {
+    const sp = document.createElement("div");
+    sp.className = "sparkle";
+    sp.style.left = "50%";
+    sp.style.top = "50%";
+    sp.style.setProperty("--x", (Math.random()*300 - 150) + "px");
+    sp.style.setProperty("--y", (Math.random()*300 - 150) + "px");
+    document.body.appendChild(sp);
+    setTimeout(() => sp.remove(), 1800);
+  }
+}
+
+/* 🎵 MUSIC */
+const music = document.getElementById("bgm");
+document.body.addEventListener("click", () => music.play(), { once: true });
+
+/* 📝 TEXT */
+const lines = [
 "Hey..!! Ee roju date yentho telusa..??",
 "Today is 10th April..",
 "So ee roju mana class lo oka ammayii birthday..",
@@ -129,28 +198,28 @@ const lines=[
 "Yevaro telusa neeku..",
 "Thanu..",
 
-"<span class='highlight'>C</span>huseki chaala silent gaa untundhi, but from Heart chaala ante chaala manchidhi..",
-"<span class='highlight'>H</span>aanandhanga frnds tho kalisi muchatlo petukovadam ante chaaala istam..",
-"<span class='highlight'>A</span>ndharu manchiga undaali ane korukuntundhi..",
-"<span class='highlight'>I</span>nkokarini yeppudu baadhapetadhu thana baadhanu cheppi..",
-"<span class='highlight'>T</span>otally different and matured character..",
-"<span class='highlight'>A</span>asal thanaki ego ante ZERO ani anipisthundhi naaku..",
-"<span class='highlight'>N</span>ijanga chaala loyal and true person thanu..",
-"<span class='highlight'>Y</span>e okariki mosam cheyadhu..",
+"<span class='highlight'>C</span>huseki chaala silent gaa untundhi, but from",
+"<span class='highlight'>H</span>eart chaala ante chaala manchidhi..",
+"<span class='highlight'>A</span>anandhanga frnds tho kalisi muchatlo petukovadam ante chaaala",
+"<span class='highlight'>I</span>stam, andharu manchiga undaali ane korukuntundhi..",
+"<span class='highlight'>T</span>hana baadhanu chepi inkokarini yeppudu baadhapetadhu..",
+"<span class='highlight'>A</span>mazing character.. Totally different and matured",
+"<span class='highlight'>N</span>aaku telisinantha varaku thanaki ZERO EGO",
+"<span class='highlight'>Y</span>e okarini mosam cheyadhu, chaala loyal.. Thanu",
 "<span class='highlight'>A</span>nukunte thanakana best inkevaaru undaaru..",
 
 "To someone I have known for about a year..",
 "To someone whom I have never seen on an angry mode..",
 "To someone who is never selfish..",
 "To someone who is always humble and kind..",
-"To that one particular person who hasn’t changed with time..",
+"To that one particular person who hasn't changed with time..",
 
 "<span class='magic'>Wishing you a many more happy returns of the day Chaitanya 🥳🥳💐💐</span>",
 
 "May you be blessed with THE BEST things in your life..",
 "May all your dreams come true.. Still a long way to go..",
 "Health jaagratha..",
-"Yeppudu low ga feel avaku..",
+"Yeppudu ye vishayam gurinchi alochinchi low ga feel avaku..",
 "Yedhi jarigina mana manchike jaruguthundhi ani positive gaa tisko..",
 "And like always… Be happy.. Have that smile on your face.",
 "Never let anything or anyone fade it away.",
@@ -161,46 +230,27 @@ const lines=[
 "Byee.. Enjoy your day..."
 ];
 
-const container=document.getElementById("container");
-let index=0, started=false;
+let i = 0;
+const lineDiv = document.getElementById("line");
 
-function typeLine(html,done){
-  const div=document.createElement("div");
-  div.className="line cursor";
-  container.appendChild(div);
-  div.style.display="block";
-  let i=0;
-  const interval=setInterval(()=>{
-    div.innerHTML=html.slice(0,i++);
-    if(i>html.length){
-      clearInterval(interval);
-      div.classList.remove("cursor");
-      setTimeout(()=>{
-        div.remove();
-        done();
-      },1700);
-    }
-  },38);
-}
+function showLine() {
+  if (i >= lines.length) return;
 
-function startShow(){
-  if(index>=lines.length){
-    container.classList.add("fade-out");
-    return;
+  lineDiv.className = "";
+  lineDiv.innerHTML = lines[i];
+
+  if (lines[i].includes("Wishing you")) {
+    lineDiv.classList.add("magic");
+    createSparkles();
+  } else {
+    lineDiv.classList.add("glow", "fadeIn");
   }
-  typeLine(lines[index],()=>{
-    index++;
-    startShow();
-  });
+
+  setTimeout(() => lineDiv.classList.add("fadeOut"), 4200);
+  setTimeout(() => { i++; showLine(); }, 5800);
 }
 
-document.body.addEventListener("click",()=>{
-  if(started) return;
-  started=true;
-  document.getElementById("music").play();
-  document.querySelector(".tap").style.display="none";
-  startShow();
-});
+showLine();
 </script>
 
 </body>
