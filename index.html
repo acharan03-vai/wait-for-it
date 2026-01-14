@@ -202,50 +202,44 @@ function createSparkles() {
     setTimeout(() => sp.remove(), 1800);
   }
 }
-
-/* 🎵 MUSIC */
+/* 🎵 MUSIC — FINAL & CLEAN */
 const music = document.getElementById("bgm");
 const tapText = document.getElementById("tapToStart");
 let started = false;
 
+// Start only on FIRST user interaction
 document.body.addEventListener("touchstart", startExperience, { once: true });
-  
+document.body.addEventListener("click", startExperience, { once: true });
+
 function startExperience() {
   if (started) return;
   started = true;
 
+  // hide "tap to start" text
   tapText.style.display = "none";
 
+  // reset & play music
   music.currentTime = 0;
   music.volume = 1;
 
   const playPromise = music.play();
 
   if (playPromise !== undefined) {
-   playPromise.then(() => {
-  replayEnabled = true;   // ✅ enable replay only AFTER music starts
-  setTimeout(showLine, 300);
-}).catch(() => {
-      // if browser blocks audio, still show text
-      showLine();
-    });
+    playPromise
+      .then(() => {
+        // music started successfully
+        setTimeout(showLine, 300);
+      })
+      .catch(() => {
+        // if browser blocks audio, still show text
+        showLine();
+      });
   } else {
     showLine();
   }
 }
-/* 🔁 DOUBLE TAP TO REPLAY */
-let lastTap = 0;
-let replayEnabled = false;
 
-document.body.addEventListener("touchend", () => {
-  if (!replayEnabled) return;
 
-  const now = Date.now();
-  if (now - lastTap < 300) {
-    location.reload();
-  }
-  lastTap = now;
-});
 /* 📝 TEXT */
 const lines = [
   "Hey..!! Ee roju date yentho telusa..??",
@@ -287,7 +281,6 @@ const lines = [
   "Always be strong..",
   "Enjoy every single moment of ur life..",
   "Byeee.. Enjoy your day...", 
-  "<span style='font-size:0.9rem; opacity:0.8;'>(Double tap anywhere to replay)</span>"
 ];
 
 let i = 0;
