@@ -275,20 +275,33 @@ function showLine() {
   lineDiv.className = "";
   lineDiv.style.opacity = 1;
 
+  // ✍️ Handwritten wishing line — slowed & smooth
   if (lines[i] === "__HANDWRITE__") {
-    handWrite("Wishing you many more happy returns of the day Chaitanya", () => {
-      lineDiv.classList.add("fadeOut");
-      i++;
-      setTimeout(showLine, 1500);
-    });
+    handWrite(
+      "Wishing you many more happy returns of the day Chaitanya",
+      () => {
+        // give time to feel the reveal
+        setTimeout(() => {
+          lineDiv.classList.add("fadeOut");
+          i++;
+          setTimeout(showLine, 2000);
+        }, 2500);
+      },
+      {
+        speed: 120,        // ⏳ slower handwriting (increase = slower)
+        easing: "ease-in-out"
+      }
+    );
     return;
   }
 
+  // 🌟 All other lines remain EXACTLY the same
   lineDiv.innerHTML = lines[i];
   lineDiv.classList.add("glow");
+
   setTimeout(() => lineDiv.classList.add("fadeOut"), 3600);
   setTimeout(() => { i++; showLine(); }, 4200);
-}
+  }
 </script>
 
 </body>
