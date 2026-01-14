@@ -222,10 +222,10 @@ function startExperience() {
   const playPromise = music.play();
 
   if (playPromise !== undefined) {
-    playPromise.then(() => {
-      // music started successfully
-      setTimeout(showLine, 300);
-    }).catch(() => {
+   playPromise.then(() => {
+  replayEnabled = true;   // ✅ enable replay only AFTER music starts
+  setTimeout(showLine, 300);
+}).catch(() => {
       // if browser blocks audio, still show text
       showLine();
     });
@@ -235,10 +235,12 @@ function startExperience() {
 }
 /* 🔁 DOUBLE TAP TO REPLAY */
 let lastTap = 0;
+let replayEnabled = false;
 
 document.body.addEventListener("touchend", () => {
-  if (!started) return; // 🔒 important
-  const now = new Date().getTime();
+  if (!replayEnabled) return;
+
+  const now = Date.now();
   if (now - lastTap < 300) {
     location.reload();
   }
