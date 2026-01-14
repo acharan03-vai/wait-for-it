@@ -148,6 +148,20 @@ body {
 
 @keyframes fadeOut {
   to { opacity: 0; }
+  
+/* 🌑 FINAL BLACKOUT */
+#blackout {
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 3.5s ease;
+  z-index: 20;
+}
+
+#blackout.show {
+  opacity: 1;
 }
 </style>
 </head>
@@ -160,7 +174,7 @@ body {
 <div id="container">
   <div id="line"></div>
 </div>
-
+<div id="blackout"></div>
 <audio id="bgm" src="Happy-Birthday-To-You-Ji.mp3" loop></audio>
 
 <script>
@@ -270,7 +284,15 @@ function handWrite(text, callback) {
 }
 
 function showLine() {
-  if (i >= lines.length) return;
+  if (i >= lines.length) {
+  music.pause(); // silence
+
+  setTimeout(() => {
+    document.getElementById("blackout").classList.add("show");
+  }, 800);
+
+  return;
+             }
 
   lineDiv.className = "";
   lineDiv.style.opacity = 1;
