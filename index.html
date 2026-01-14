@@ -215,7 +215,16 @@ document.body.addEventListener("click", () => {
   tapText.style.display = "none";
   showLine();
 });
+/* 🔁 DOUBLE TAP TO REPLAY */
+let lastTap = 0;
 
+document.body.addEventListener("touchend", () => {
+  const now = new Date().getTime();
+  if (now - lastTap < 300) {
+    location.reload();
+  }
+  lastTap = now;
+});
 /* 📝 TEXT */
 const lines = [
   "Hey..!! Ee roju date yentho telusa..??",
@@ -257,6 +266,7 @@ const lines = [
   "Always be strong..",
   "Enjoy every single moment of ur life..",
   "Byeee.. Enjoy your day..."
+  "<span style='font-size:0.9rem; opacity:0.8;'>(Double tap anywhere to replay)</span>"
 ];
 
 let i = 0;
