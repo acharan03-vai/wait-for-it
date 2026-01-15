@@ -177,9 +177,8 @@ body {
 <div id="blackout"></div>
 <audio id="bgm" src="Happy-Birthday-To-You-Ji.mp3" preload="auto" loop></audio>
 
-
 <script>
-/* ⭐ STARS (UNCHANGED) */
+/* ⭐ STARS */
 const stars = document.getElementById("stars");
 for (let i = 0; i < 70; i++) {
   const s = document.createElement("div");
@@ -209,42 +208,28 @@ const music = document.getElementById("bgm");
 const tapText = document.getElementById("tapToStart");
 let started = false;
 
-// 1. Force the audio to load immediately
+// Pre-load the file
 music.load();
 
 async function startExperience() {
   if (started) return;
   started = true;
 
-  // Hide the tap instruction
   tapText.style.display = "none";
 
   try {
-    // 2. The most important line: Direct play command
+    // Wait for music to play before showing text
     await music.play();
-    console.log("Music is playing!");
+    showLine();
   } catch (err) {
-    console.log("Audio failed, trying fallback...");
-    // Fallback: some browsers require a second manual trigger
-    music.play();
+    // If browser blocks, still show text so the wish works
+    console.log("Audio blocked, starting text anyway");
+    showLine();
   }
-
-  // 3. Start the text only after music command is sent
-  showLine();
 }
 
-// 4. Use 'pointerup' or 'click' - these are the most "trusted" by mobile Chrome
-window.addEventListener("pointerup", startExperience, { once: true });
-
-}
-
-// Attach the listener to the whole window to ensure the tap is caught
-window.addEventListener("click", startExperience, { once: true });
-
-
-
-// 🔒 use ONLY ONE event
-document.body.addEventListener("pointerdown", startExperience, { once: true });
+// Single reliable event listener for mobile
+document.addEventListener("click", startExperience, { once: true });
 
 /* 📝 TEXT */
 const lines = [
@@ -254,7 +239,6 @@ const lines = [
   "So konchem naa wishes thanaki convey chesthaava pls..",
   "Yevaro telusa neeku..",
   "Thanu..",
-
   "<span class='highlight'>C</span>huseki chaala silent gaa untundhi, but from",
   "<span class='highlight'>H</span>eart chaala ante chaala manchidhi..",
   "<span class='highlight'>A</span>anandhanga frnds tho kalisi muchatlo petukovadam ante chaaala",
@@ -264,17 +248,14 @@ const lines = [
   "<span class='highlight'>N</span>aaku telisinantha varaku thanaki ZERO EGO",
   "<span class='highlight'>Y</span>e okarini mosam cheyadhu, chaala loyal.. Thanu",
   "<span class='highlight'>A</span>nukunte thanakana best inkevaaru undaaru..",
-
- "To someone I have known for about an year..",
- "To someone whom I have rarely seen on an angry mode..",
- "To someone who is never selfish..",
- "To someone who is always humble and kind..",
- "To someone who understands without many words...",
- "To that one particular person who hasn't changed with time..",
- " So...yeah now...", 
-
-  "__HANDWRITE__",   // 👈 marker for handwriting line
-
+  "To someone I have known for about an year..",
+  "To someone whom I have rarely seen on an angry mode..",
+  "To someone who is never selfish..",
+  "To someone who is always humble and kind..",
+  "To someone who understands without many words...",
+  "To that one particular person who hasn't changed with time..",
+  " So...yeah now...", 
+  "__HANDWRITE__",
   "May you be blessed with THE BEST things in your life..",
   "May all your dreams come true.. Still a long way to go..",
   "Health jaagratha..",
@@ -286,13 +267,12 @@ const lines = [
   "All the very best for ur life...",
   "Always be strong..",
   "Enjoy every single moment of ur life..",
-  "Byeee.. Enjoy your day...", 
+  "Byeee.. Enjoy your day..."
 ];
 
 let i = 0;
 const lineDiv = document.getElementById("line");
 
-/* ✍️ HANDWRITING FUNCTION */
 function handWrite(text, callback) {
   let idx = 0;
   lineDiv.innerHTML = `<span class="handwrite"></span><span class="cursor">✍️</span>`;
@@ -304,7 +284,7 @@ function handWrite(text, callback) {
       idx++;
       setTimeout(type, 85);
     } else {
-      lineDiv.querySelector(".cursor").remove();
+      if(lineDiv.querySelector(".cursor")) lineDiv.querySelector(".cursor").remove();
       span.innerHTML += " 🥳🥳💐💐";
       createSparkles();
       setTimeout(callback, 4200);
@@ -315,46 +295,35 @@ function handWrite(text, callback) {
 
 function showLine() {
   if (i >= lines.length) {
-  music.pause(); // silence
-
-  setTimeout(() => {
-    document.getElementById("blackout").classList.add("show");
-  }, 800);
-
-  return;
-             }
+    music.pause();
+    setTimeout(() => {
+      document.getElementById("blackout").classList.add("show");
+    }, 800);
+    return;
+  }
 
   lineDiv.className = "";
   lineDiv.style.opacity = 1;
 
-  // ✍️ Handwritten wishing line — slowed & smooth
   if (lines[i] === "__HANDWRITE__") {
-    handWrite(
-      "Wishing you many more happy returns of the day Chaitanya",
-      () => {
-        // give time to feel the reveal
+    handWrite("Wishing you many more happy returns of the day Chaitanya", () => {
         setTimeout(() => {
           lineDiv.classList.add("fadeOut");
           i++;
           setTimeout(showLine, 2000);
         }, 2500);
-      },
-      {
-        speed: 120,        // ⏳ slower handwriting (increase = slower)
-        easing: "ease-in-out"
-      }
-    );
+    });
     return;
   }
 
-  // 🌟 All other lines remain EXACTLY the same
   lineDiv.innerHTML = lines[i];
   lineDiv.classList.add("glow");
 
   setTimeout(() => lineDiv.classList.add("fadeOut"), 3600);
   setTimeout(() => { i++; showLine(); }, 4200);
-  }
+}
 </script>
-
 </body>
+
+  
 </html>
