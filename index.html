@@ -175,7 +175,8 @@ body {
   <div id="line"></div>
 </div>
 <div id="blackout"></div>
-<audio id="bgm" src="Happy-Birthday-To-You-Ji.mp3" loop></audio>
+<audio id="bgm" src="Happy-Birthday-To-You-Ji.mp3" preload="auto" loop></audio>
+
 
 <script>
 /* ⭐ STARS (UNCHANGED) */
@@ -214,15 +215,18 @@ function startExperience() {
 
   tapText.style.display = "none";
 
-  music.currentTime = 0;
-  music.volume = 1;
+  // Attempt to play the music
+  music.play().then(() => {
+    console.log("Playback started successfully!");
+  }).catch(error => {
+    console.error("Playback failed:", error);
+    // This alert will help you debug on your phone
+    alert("Music error: " + error.message);
+  });
 
-  // 🚨 CRITICAL: play MUST happen immediately inside the gesture
-  music.play();
-
-  // start text immediately after
   showLine();
 }
+
 
 // 🔒 use ONLY ONE event
 document.body.addEventListener("pointerdown", startExperience, { once: true });
