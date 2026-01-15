@@ -204,31 +204,38 @@ function createSparkles() {
   }
 }
 
-/* 🎵 MUSIC — HARD SYNCED */
+/* 🎵 MUSIC & TEXT SYNCED START */
 const music = document.getElementById("bgm");
 const tapText = document.getElementById("tapToStart");
 let started = false;
 
-// We use 'click' because it is the most trusted event for mobile audio
+// 1. Force the audio to load immediately
+music.load();
+
 async function startExperience() {
   if (started) return;
   started = true;
 
-  // 1. Hide the instruction immediately
+  // Hide the tap instruction
   tapText.style.display = "none";
 
   try {
-    // 2. Start the music and WAIT for it to confirm it's playing
+    // 2. The most important line: Direct play command
     await music.play();
-    
-    // 3. ONLY start the text after the music has successfully started
-    showLine(); 
-  } catch (error) {
-    console.error("Playback failed:", error);
-    // Fallback: If for some reason the audio is still blocked, 
-    // we still show the text so the birthday wish isn't ruined.
-    showLine();
+    console.log("Music is playing!");
+  } catch (err) {
+    console.log("Audio failed, trying fallback...");
+    // Fallback: some browsers require a second manual trigger
+    music.play();
   }
+
+  // 3. Start the text only after music command is sent
+  showLine();
+}
+
+// 4. Use 'pointerup' or 'click' - these are the most "trusted" by mobile Chrome
+window.addEventListener("pointerup", startExperience, { once: true });
+
 }
 
 // Attach the listener to the whole window to ensure the tap is caught
