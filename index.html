@@ -182,6 +182,36 @@ body {
 #blackout.show {
   opacity: 1;
 }
+/* 🏮 FLOATING LANTERNS */
+.lantern {
+  position: absolute;
+  width: 15px;
+  height: 20px;
+  background: rgba(255, 165, 0, 0.8);
+  border-radius: 4px;
+  box-shadow: 0 0 15px 5px rgba(255, 69, 0, 0.6);
+  pointer-events: none;
+  z-index: 1; /* Behind the text */
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(110vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
 </style>
 </head>
 
@@ -233,19 +263,18 @@ music.load();
 async function startExperience() {
   if (started) return;
   started = true;
-
   tapText.style.display = "none";
-
   try {
-    // Wait for music to play before showing text
     await music.play();
+    createLanterns(); // <--- ADD THIS
     showLine();
   } catch (err) {
-    // If browser blocks, still show text so the wish works
     console.log("Audio blocked, starting text anyway");
+    createLanterns(); // <--- ADD THIS
     showLine();
   }
 }
+
 
 // Single reliable event listener for mobile
 document.addEventListener("click", startExperience, { once: true });
@@ -361,6 +390,22 @@ function showLine() {
   }, 4500); 
 }
 
+function createLanterns() {
+  const lanternContainer = document.getElementById("stars"); 
+  setInterval(() => {
+    const lantern = document.createElement("div");
+    lantern.className = "lantern";
+    const startX = Math.random() * 100;
+    const duration = 10 + Math.random() * 10;
+    lantern.style.left = startX + "vw";
+    lantern.style.animationDuration = duration + "s";
+    const size = 10 + Math.random() * 10;
+    lantern.style.width = size + "px";
+    lantern.style.height = (size * 1.3) + "px";
+    lanternContainer.appendChild(lantern);
+    setTimeout(() => lantern.remove(), duration * 1000);
+  }, 2000); 
+}
 
 </script>
 </body>
