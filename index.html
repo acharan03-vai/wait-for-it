@@ -204,28 +204,36 @@ function createSparkles() {
   }
 }
 
-/* 🎵 MUSIC — GUARANTEED MOBILE SAFE */
+/* 🎵 MUSIC — HARD SYNCED */
 const music = document.getElementById("bgm");
 const tapText = document.getElementById("tapToStart");
 let started = false;
 
-function startExperience() {
+// We use 'click' because it is the most trusted event for mobile audio
+async function startExperience() {
   if (started) return;
   started = true;
 
+  // 1. Hide the instruction immediately
   tapText.style.display = "none";
 
-  // Attempt to play the music
-  music.play().then(() => {
-    console.log("Playback started successfully!");
-  }).catch(error => {
+  try {
+    // 2. Start the music and WAIT for it to confirm it's playing
+    await music.play();
+    
+    // 3. ONLY start the text after the music has successfully started
+    showLine(); 
+  } catch (error) {
     console.error("Playback failed:", error);
-    // This alert will help you debug on your phone
-    alert("Music error: " + error.message);
-  });
-
-  showLine();
+    // Fallback: If for some reason the audio is still blocked, 
+    // we still show the text so the birthday wish isn't ruined.
+    showLine();
+  }
 }
+
+// Attach the listener to the whole window to ensure the tap is caught
+window.addEventListener("click", startExperience, { once: true });
+
 
 
 // 🔒 use ONLY ONE event
