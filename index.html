@@ -154,18 +154,30 @@ body {
   filter: blur(5px); /* Starts blurry */
 }
 
-.magical-show {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  filter: blur(0) !important;
-  text-shadow: 0 0 15px rgba(255, 215, 100, 0.8), 0 0 25px rgba(255, 255, 255, 0.5);
+/* 🌊 EVAPORATION ANIMATION */
+#line {
+  font-size: 1.35rem;
+  line-height: 1.7;
+  opacity: 0;
+  transition: all 1.2s ease-in-out;
+  transform: translateY(0);
+  filter: blur(0px);
 }
 
-.magical-hide {
-  opacity: 0 !important;
-  transform: translateY(-10px) !important;
-  filter: blur(10px) !important;
+.evaporate-show {
+  opacity: 1 !important;
+  filter: blur(0) !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
+
+.evaporate-hide {
+  opacity: 0 !important;
+  transform: translateY(-25px) scale(1.1) !important; /* Lifts up like steam */
+  filter: blur(12px) brightness(1.5) !important; /* Spreads out and glows */
+  letter-spacing: 4px !important; /* Letters drift apart */
+  transition: all 2.5s ease-out !important; /* Slow evaporation */
+}
+
 
   
 /* 🌑 FINAL BLACKOUT */
@@ -336,10 +348,9 @@ function showLine() {
     return;
   }
 
-  // Clear previous classes
   lineDiv.className = "";
   
-  // ✍️ Keep handwriting line exactly as it was
+  // ✍️ Handwriting line stays exactly as you liked it
   if (lines[i] === "__HANDWRITE__") {
     lineDiv.style.transform = "none";
     lineDiv.style.filter = "none";
@@ -347,34 +358,34 @@ function showLine() {
     
     handWrite("Wishing you many more happy returns of the day Chaitanya", () => {
         setTimeout(() => {
-          lineDiv.classList.add("magical-hide"); 
+          lineDiv.classList.add("evaporate-hide"); // Evaporate after handwriting
           i++;
-          setTimeout(showLine, 2000);
+          setTimeout(showLine, 2500);
         }, 2500);
     });
     return;
   }
 
-  // 🌟 Magical animation for all other lines
   lineDiv.innerHTML = lines[i];
   
-  // Trigger Entrance (Blur to Clear)
+  // 💧 Show Line (Clear and Bright)
   setTimeout(() => {
-    lineDiv.classList.add("magical-show");
+    lineDiv.classList.add("evaporate-show");
   }, 100);
 
-  // Trigger Exit (Blur Out)
+  // ☁️ Evaporate Line (Letters lift, blur, and drift apart)
   setTimeout(() => {
-    lineDiv.classList.remove("magical-show");
-    lineDiv.classList.add("magical-hide");
+    lineDiv.classList.remove("evaporate-show");
+    lineDiv.classList.add("evaporate-hide");
   }, 3600);
 
   // Move to next line
   setTimeout(() => {
     i++;
     showLine();
-  }, 4500); 
+  }, 5000); // Slightly longer to let the evaporation finish
 }
+
 
 
 </script>
