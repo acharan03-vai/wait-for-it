@@ -154,29 +154,19 @@ body {
   filter: blur(5px); /* Starts blurry */
 }
 
-/* 🌊 EVAPORATION ANIMATION */
-#line {
-  font-size: 1.35rem;
-  line-height: 1.7;
-  opacity: 0;
-  transition: all 1.2s ease-in-out;
-  transform: translateY(0);
-  filter: blur(0px);
+/* 🌊 ADVANCED INDIVIDUAL LETTER EVAPORATION */
+.letter {
+  display: inline-block;
+  transition: all 2.5s ease-out;
 }
 
-.evaporate-show {
-  opacity: 1 !important;
-  filter: blur(0) !important;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-}
-
-.evaporate-hide {
+.evaporate-hide .letter {
   opacity: 0 !important;
-  transform: translateY(-25px) scale(1.1) !important; /* Lifts up like steam */
-  filter: blur(12px) brightness(1.5) !important; /* Spreads out and glows */
-  letter-spacing: 4px !important; /* Letters drift apart */
-  transition: all 2.5s ease-out !important; /* Slow evaporation */
+  transform: translateY(-40px) rotate(var(--rot)) scale(1.2) !important;
+  filter: blur(10px) brightness(2) !important;
+  transition-delay: var(--delay) !important;
 }
+
 
 
   
@@ -338,7 +328,6 @@ function handWrite(text, callback) {
   }
   type();
 }
-/* 📝 UPDATED MAGICAL SHOWLINE FUNCTION */
 function showLine() {
   if (i >= lines.length) {
     music.pause();
@@ -349,42 +338,54 @@ function showLine() {
   }
 
   lineDiv.className = "";
+  lineDiv.style.letterSpacing = "normal";
   
-  // ✍️ Handwriting line stays exactly as you liked it
   if (lines[i] === "__HANDWRITE__") {
     lineDiv.style.transform = "none";
     lineDiv.style.filter = "none";
     lineDiv.style.opacity = 1;
     
     handWrite("Wishing you many more happy returns of the day Chaitanya", () => {
+        // Wrap handwriting letters for evaporation
+        const text = lineDiv.querySelector(".handwrite").innerText;
+        lineDiv.innerHTML = text.split('').map(char => 
+          `<span class="letter" style="--delay: ${Math.random() * 0.8}s; --rot: ${Math.random() * 30 - 15}deg">${char === ' ' ? '&nbsp;' : char}</span>`
+        ).join('');
+
         setTimeout(() => {
-          lineDiv.classList.add("evaporate-hide"); // Evaporate after handwriting
+          lineDiv.classList.add("evaporate-hide"); 
           i++;
-          setTimeout(showLine, 2500);
+          setTimeout(showLine, 3000);
         }, 2500);
     });
     return;
   }
 
-  lineDiv.innerHTML = lines[i];
+  // 💧 Wrap every letter of the normal lines
+  const rawText = lines[i].replace(/<[^>]*>/g, ''); // Strip highlight tags for clean splitting
+  // Note: If you want to keep the "Highlight" color, we'd need a more complex regex, 
+  // but for pure evaporation, splitting raw text is smoothest.
   
-  // 💧 Show Line (Clear and Bright)
+  lineDiv.innerHTML = lines[i].split('').map(char => {
+    const delay = Math.random() * 1.5; // Random delay for each letter
+    const rotation = Math.random() * 40 - 20; // Random tilt
+    return `<span class="letter" style="--delay: ${delay}s; --rot: ${rotation}deg">${char === ' ' ? '&nbsp;' : char}</span>`;
+  }).join('');
+  
   setTimeout(() => {
     lineDiv.classList.add("evaporate-show");
   }, 100);
 
-  // ☁️ Evaporate Line (Letters lift, blur, and drift apart)
   setTimeout(() => {
-    lineDiv.classList.remove("evaporate-show");
     lineDiv.classList.add("evaporate-hide");
   }, 3600);
 
-  // Move to next line
   setTimeout(() => {
     i++;
     showLine();
-  }, 5000); // Slightly longer to let the evaporation finish
+  }, 5500); 
 }
+
 
 
 
