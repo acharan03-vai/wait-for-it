@@ -381,7 +381,7 @@ function showLine() {
     i++;
     showLine();
   }, 6500); // Wait for the full evaporate-hide transition to finish
-
+}
 function applyLetterEffect(text) {
   lineDiv.innerHTML = text.split('').map(char => {
     const delay = Math.random() * 1.5; 
