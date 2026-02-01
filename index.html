@@ -144,31 +144,28 @@ body {
 @keyframes fadeOut {
   to { opacity: 0; }
   }
-/* 🌊 NEW EVAPORATION CSS */
-.letter {
-  display: inline-block;
-  opacity: 0;            /* Start invisible so they can fade in */
-  filter: blur(10px);
-  transform: translateY(10px);
-  transition: all 1.2s ease-out;
+/* ✨ MAGICAL TEXT ANIMATION */
+#line {
+  font-size: 1.35rem;
+  line-height: 1.7;
+  opacity: 0;
+  transition: all 1.5s ease; /* Smooth transition for all properties */
+  transform: translateY(10px); /* Starts slightly lower */
+  filter: blur(5px); /* Starts blurry */
 }
 
-.evaporate-show .letter {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(0);
+.magical-show {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  filter: blur(0) !important;
+  text-shadow: 0 0 15px rgba(255, 215, 100, 0.8), 0 0 25px rgba(255, 255, 255, 0.5);
 }
 
-.evaporate-hide .letter {
+.magical-hide {
   opacity: 0 !important;
-  transform: translateY(-60px) rotate(var(--rot)) scale(1.4) !important;
-  filter: blur(15px) brightness(2) !important;
-  transition: all 1.2s ease-in !important;
-  transition-delay: var(--delay) !important; 
+  transform: translateY(-10px) !important;
+  filter: blur(10px) !important;
 }
-
-
-
 
   
 /* 🌑 FINAL BLACKOUT */
@@ -329,6 +326,7 @@ function handWrite(text, callback) {
   }
   type();
 }
+/* 📝 UPDATED MAGICAL SHOWLINE FUNCTION */
 function showLine() {
   if (i >= lines.length) {
     music.pause();
@@ -338,52 +336,44 @@ function showLine() {
     return;
   }
 
-  // Reset state for new line
+  // Clear previous classes
   lineDiv.className = "";
   
+  // ✍️ Keep handwriting line exactly as it was
   if (lines[i] === "__HANDWRITE__") {
+    lineDiv.style.transform = "none";
+    lineDiv.style.filter = "none";
     lineDiv.style.opacity = 1;
+    
     handWrite("Wishing you many more happy returns of the day Chaitanya", () => {
-        const text = lineDiv.innerText; 
-        applyLetterEffect(text); 
-
         setTimeout(() => {
-          lineDiv.classList.add("evaporate-hide"); 
+          lineDiv.classList.add("magical-hide"); 
           i++;
-          setTimeout(showLine, 4500); 
-        }, 1500);
+          setTimeout(showLine, 2000);
+        }, 2500);
     });
     return;
   }
 
-  // Use a temporary div to strip HTML tags safely
-  const temp = document.createElement('div');
-  temp.innerHTML = lines[i]; 
-  const cleanText = temp.innerText; 
+  // 🌟 Magical animation for all other lines
+  lineDiv.innerHTML = lines[i];
   
-  applyLetterEffect(cleanText); 
-  
+  // Trigger Entrance (Blur to Clear)
   setTimeout(() => {
-    lineDiv.classList.add("evaporate-show"); 
+    lineDiv.classList.add("magical-show");
   }, 100);
 
+  // Trigger Exit (Blur Out)
   setTimeout(() => {
-    lineDiv.classList.add("evaporate-hide"); 
-  }, 2800);
+    lineDiv.classList.remove("magical-show");
+    lineDiv.classList.add("magical-hide");
+  }, 3600);
 
+  // Move to next line
   setTimeout(() => {
     i++;
     showLine();
   }, 4500); 
-}
-
-// 💧 Helper function to split text into individual "vapor" letters
-function applyLetterEffect(text) {
-  lineDiv.innerHTML = text.split('').map(char => {
-    const delay = Math.random() * 0.6; 
-    const rot = Math.random() * 50 - 25; 
-    return `<span class="letter" style="--delay: ${delay}s; --rot: ${rot}deg">${char === ' ' ? '&nbsp;' : char}</span>`;
-  }).join('');
 }
 
 
