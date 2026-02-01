@@ -348,30 +348,26 @@ function showLine() {
     
     handWrite("Wishing you many more happy returns of the day Chaitanya", () => {
         // Wrap handwriting letters for evaporation
-        const text = lineDiv.querySelector(".handwrite").innerText;
-        lineDiv.innerHTML = text.split('').map(char => 
-          `<span class="letter" style="--delay: ${Math.random() * 0.8}s; --rot: ${Math.random() * 30 - 15}deg">${char === ' ' ? '&nbsp;' : char}</span>`
-        ).join('');
+                const text = lineDiv.querySelector(".handwrite").innerText;
+        applyLetterEffect(text); // 💧 Use your helper function here
 
         setTimeout(() => {
           lineDiv.classList.add("evaporate-hide"); 
           i++;
-          setTimeout(showLine, 3000);
-        }, 2500);
+          setTimeout(showLine, 4000); // Give it time to evaporate
+        }, 1500);
+
     });
     return;
   }
 
   // 💧 Wrap every letter of the normal lines
-  const rawText = lines[i].replace(/<[^>]*>/g, ''); // Strip highlight tags for clean splitting
-  // Note: If you want to keep the "Highlight" color, we'd need a more complex regex, 
-  // but for pure evaporation, splitting raw text is smoothest.
+    // 💧 Cleanly handle the normal lines
+  const temp = document.createElement('div');
+  temp.innerHTML = lines[i]; 
+  const cleanText = temp.innerText; // This gets the text without breaking the <span> tags
   
-  lineDiv.innerHTML = lines[i].split('').map(char => {
-    const delay = Math.random() * 1.5; // Random delay for each letter
-    const rotation = Math.random() * 40 - 20; // Random tilt
-    return `<span class="letter" style="--delay: ${delay}s; --rot: ${rotation}deg">${char === ' ' ? '&nbsp;' : char}</span>`;
-  }).join('');
+  applyLetterEffect(cleanText); // 💧 This makes the text visible and ready
   
   setTimeout(() => {
     lineDiv.classList.add("evaporate-show");
@@ -379,14 +375,12 @@ function showLine() {
 
   setTimeout(() => {
     lineDiv.classList.add("evaporate-hide");
-  }, 3600);
+  }, 3800);
 
   setTimeout(() => {
     i++;
     showLine();
-  }, 5500); 
-}
-
+  }, 6500); // Wait for the full evaporate-hide transition to finish
 
 function applyLetterEffect(text) {
   lineDiv.innerHTML = text.split('').map(char => {
