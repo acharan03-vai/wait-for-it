@@ -163,7 +163,7 @@ body {
   opacity: 0 !important;
   transform: translateY(-60px) rotate(var(--rot)) scale(1.4) !important;
   filter: blur(15px) brightness(2) !important;
-  transition: all 2.5s ease-in !important;
+  transition: all 1.2s ease-in !important;
   transition-delay: var(--delay) !important; 
 }
 
@@ -369,18 +369,18 @@ function showLine() {
 
   setTimeout(() => {
     lineDiv.classList.add("evaporate-hide"); 
-  }, 3800);
+  }, 2800);
 
   setTimeout(() => {
     i++;
     showLine();
-  }, 6800); 
+  }, 4500); 
 }
 
 // 💧 Helper function to split text into individual "vapor" letters
 function applyLetterEffect(text) {
   lineDiv.innerHTML = text.split('').map(char => {
-    const delay = Math.random() * 1.5; 
+    const delay = Math.random() * 0.6; 
     const rot = Math.random() * 50 - 25; 
     return `<span class="letter" style="--delay: ${delay}s; --rot: ${rot}deg">${char === ' ' ? '&nbsp;' : char}</span>`;
   }).join('');
