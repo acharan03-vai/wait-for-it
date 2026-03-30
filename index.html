@@ -355,13 +355,21 @@ function handWrite(text, callback) {
 }
 /* 📝 UPDATED MAGICAL SHOWLINE FUNCTION */
 function showLine() {
-  if (i >= lines.length) {
+    if (i >= lines.length) {
     music.pause();
     setTimeout(() => {
+      // 1. First, the screen turns black
       document.getElementById("blackout").classList.add("show");
+      
+      // 2. Then, show the Telugu hint after 3 seconds
+      setTimeout(() => {
+        document.getElementById("replay-hint").style.display = "block";
+      }, 3000); 
+      
     }, 800);
     return;
   }
+
 
   // Clear previous classes
   lineDiv.className = "";
