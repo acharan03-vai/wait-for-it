@@ -198,6 +198,34 @@ body {
     opacity: 0;
   }
 }
+/* 🌟 REPLAY HINT STYLE */
+#replay-hint {
+  position: fixed;
+  bottom: 35%; 
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffd700; 
+  font-family: 'Dancing Script', cursive;
+  font-size: 22px;
+  text-align: center;
+  width: 90%;
+  text-shadow: 0 0 10px rgba(255, 214, 0, 0.8), 0 0 20px orange; 
+  display: none; 
+  z-index: 1000;
+  animation: blinkGlow 3s infinite ease-in-out;
+  line-height: 1.6;
+}
+
+#replay-hint span {
+  font-size: 14px; 
+  opacity: 0.8;
+  display: block;
+}
+
+@keyframes blinkGlow {
+  0%, 100% { opacity: 0.2; filter: blur(1px); transform: translateX(-50%) scale(0.95); }
+  50% { opacity: 1; filter: blur(0px); transform: translateX(-50%) scale(1); }
+}
 
 </style>
 </head>
@@ -212,6 +240,7 @@ body {
 </div>
 <div id="blackout"></div>
 <audio id="bgm" src="tanya.mp3" preload="auto" loop></audio>
+<div id="replay-hint">Malli chudaala..?? 🌟🌟<span>Tap the screen thrice ✨✨</span></div>
 
 <script>
 /* ⭐ STARS */
@@ -373,6 +402,19 @@ function showLine() {
     showLine();
   }, 5500); 
 }
+/* 👆 TRIPLE TAP DETECTOR */
+let tapCount = 0;
+let tapTimer;
+
+document.addEventListener("touchstart", function() {
+  tapCount++;
+  clearTimeout(tapTimer);
+  tapTimer = setTimeout(() => { tapCount = 0; }, 500);
+
+  if (tapCount === 3) {
+    location.reload(); 
+  }
+});
 
 
 </script>
