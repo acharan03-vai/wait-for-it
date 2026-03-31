@@ -101,15 +101,33 @@ body {
 }
 
 
+/* 🌟 INTENSE MAGICAL GLOW */
 .glow {
-  text-shadow: 0 0 18px rgba(255,255,255,0.9);
-  animation: breathe 3s ease-in-out infinite;
+  color: #fff3b0; /* Warmer white for a premium look */
+  text-shadow: 0 0 20px rgba(255, 215, 100, 0.9), 0 0 40px rgba(255, 255, 255, 0.6);
+  animation: breathe 2.5s ease-in-out infinite; /* Slightly faster for more "life" */
 }
 
 @keyframes breathe {
-  0%,100% { text-shadow: 0 0 12px rgba(255,255,255,0.6); }
-  50% { text-shadow: 0 0 26px rgba(255,255,255,1); }
+  0%, 100% { 
+    text-shadow: 0 0 15px rgba(255, 215, 100, 0.7), 0 0 30px rgba(255, 255, 255, 0.4);
+    transform: scale(1);
+  }
+  50% { 
+    text-shadow: 0 0 35px rgba(255, 215, 100, 1), 0 0 60px rgba(255, 255, 255, 0.8), 0 0 80px rgba(255, 215, 0, 0.5);
+    transform: scale(1.02); /* Very subtle pulse */
+  }
 }
+
+/* ✨ ENHANCED MAGICAL SHOW */
+.magical-show {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  filter: blur(0) !important;
+  /* Added a triple-layer shadow for depth */
+  text-shadow: 0 0 20px gold, 0 0 40px white, 0 0 60px orange;
+}
+
 
 .highlight {
   color: #ffd700;
@@ -167,10 +185,12 @@ body {
 }
 .flicker-name {
   color: #ffd700;
-  text-shadow: 0 0 20px #fff, 0 0 30px gold;
-  transition: all 0.5s ease-in-out;
+  font-weight: bold;
+  text-shadow: 0 0 25px gold, 0 0 50px white;
+  transition: all 0.1s ease-in-out;
   display: inline-block;
 }
+
 
   
 /* 🌑 FINAL BLACKOUT */
@@ -345,8 +365,17 @@ const lineDiv = document.getElementById("line");
 function handWrite(dummyText, callback) {
   let idx = 0;
   const baseText = "Wishing you many more happy returns of the day ";
-  // 🎬 YOUR PAN-INDIAN ORDER: Korean, Hindi, Malayalam, Kannada, Tamil, Telugu, English
-  const names = ["차이타냐", "चैतन्या", "ചൈതന്യ", "ಚೈತನ್ಯ", "சைதன்யா", "చైతన్య", "Chaitanya"]; 
+  
+  // 🎬 REVISED ORDER: Japanese -> Hindi -> Malayalam -> Kannada -> Tamil -> Telugu -> English
+  const names = [
+    "チャイタニヤ", // Japanese
+    "चैतन्या",      // Hindi
+    "ചൈതന്യ",      // Malayalam
+    "ಚೈತನ್ಯ",      // Kannada
+    "சைதன்யா",      // Tamil
+    "చైతన్య",      // Telugu
+    "Chaitanya"    // English Finale
+  ]; 
   
   lineDiv.innerHTML = `<span class="handwrite"></span><span class="cursor">✍️</span>`;
   const span = lineDiv.querySelector(".handwrite");
@@ -358,31 +387,42 @@ function handWrite(dummyText, callback) {
       setTimeout(type, 110); 
     } else {
       let nameIdx = 0;
-      // Create a dedicated spot for the flickering name
-      const nameSpan = document.createElement("span");
-      nameSpan.className = "flicker-name"; 
-      span.appendChild(nameSpan);
       
+      // 🎬 CINEMATIC FLICKER LOGIC
       const flickerInterval = setInterval(() => {
-        nameSpan.innerHTML = names[nameIdx];
+        // Find or create the name container
+        let nameSpan = span.querySelector(".flicker-name");
+        if (!nameSpan) {
+          nameSpan = document.createElement("span");
+          nameSpan.className = "flicker-name";
+          span.appendChild(nameSpan);
+        }
         
+        nameSpan.innerHTML = names[nameIdx];
+
         if (nameIdx < names.length - 1) {
           nameIdx++;
         } else {
+          // 🏁 STOP THE FLICKER ON "Chaitanya"
           clearInterval(flickerInterval);
-          // 🏁 Final touch after English name settles
-          if(lineDiv.querySelector(".cursor")) lineDiv.querySelector(".cursor").remove();
-          span.innerHTML += " 🥳🥳💐💐";
-          createSparkles();
           
-          // This matches your 4.2s delay so she can read the full line
-          setTimeout(callback, 4200);
+          // Wait for the name to settle before adding emojis
+          setTimeout(() => {
+            if(lineDiv.querySelector(".cursor")) lineDiv.querySelector(".cursor").remove();
+            span.innerHTML += " 🥳🥳💐💐";
+            createSparkles();
+            
+            // Keep the full line on screen for 4.2s
+            setTimeout(callback, 4200);
+          }, 1000); 
         }
-      }, 200); // 200ms gives that perfect "Cinema Title" flicker speed
+      }, 800); // 🕒 0.8s is the perfect "cinematic" speed
     }
   }
   type();
 }
+
+
 
 /* 📝 UPDATED MAGICAL SHOWLINE FUNCTION */
 function showLine() {
