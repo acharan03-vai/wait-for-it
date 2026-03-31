@@ -165,6 +165,12 @@ body {
   transform: translateY(-10px) !important;
   filter: blur(10px) !important;
 }
+.flicker-name {
+  color: #ffd700;
+  text-shadow: 0 0 20px #fff, 0 0 30px gold;
+  transition: all 0.5s ease-in-out;
+  display: inline-block;
+}
 
   
 /* 🌑 FINAL BLACKOUT */
@@ -336,25 +342,48 @@ const lines = [
 let i = 0;
 const lineDiv = document.getElementById("line");
 
-function handWrite(text, callback) {
+function handWrite(dummyText, callback) {
   let idx = 0;
+  const baseText = "Wishing you many more happy returns of the day ";
+  // 🎬 YOUR PAN-INDIAN ORDER: Korean, Hindi, Malayalam, Kannada, Tamil, Telugu, English
+  const names = ["차이타냐", "चैतन्या", "ചൈതന്യ", "ಚೈತನ್ಯ", "சைதன்யா", "చైతన్య", "Chaitanya"]; 
+  
   lineDiv.innerHTML = `<span class="handwrite"></span><span class="cursor">✍️</span>`;
   const span = lineDiv.querySelector(".handwrite");
 
   function type() {
-    if (idx < text.length) {
-      span.innerHTML += text.charAt(idx);
+    if (idx < baseText.length) {
+      span.innerHTML += baseText.charAt(idx);
       idx++;
-      setTimeout(type, 135);
+      setTimeout(type, 110); 
     } else {
-      if(lineDiv.querySelector(".cursor")) lineDiv.querySelector(".cursor").remove();
-      span.innerHTML += " 🥳🥳💐💐";
-      createSparkles();
-      setTimeout(callback, 4200);
+      let nameIdx = 0;
+      // Create a dedicated spot for the flickering name
+      const nameSpan = document.createElement("span");
+      nameSpan.className = "flicker-name"; 
+      span.appendChild(nameSpan);
+      
+      const flickerInterval = setInterval(() => {
+        nameSpan.innerHTML = names[nameIdx];
+        
+        if (nameIdx < names.length - 1) {
+          nameIdx++;
+        } else {
+          clearInterval(flickerInterval);
+          // 🏁 Final touch after English name settles
+          if(lineDiv.querySelector(".cursor")) lineDiv.querySelector(".cursor").remove();
+          span.innerHTML += " 🥳🥳💐💐";
+          createSparkles();
+          
+          // This matches your 4.2s delay so she can read the full line
+          setTimeout(callback, 4200);
+        }
+      }, 200); // 200ms gives that perfect "Cinema Title" flicker speed
     }
   }
   type();
 }
+
 /* 📝 UPDATED MAGICAL SHOWLINE FUNCTION */
 function showLine() {
     if (i >= lines.length) {
@@ -382,7 +411,7 @@ function showLine() {
     lineDiv.style.filter = "none";
     lineDiv.style.opacity = 1;
     
-    handWrite("Wishing you many more happy returns of the day Chaitanya", () => {
+    handWrite("", () => {
         setTimeout(() => {
           lineDiv.classList.add("magical-hide"); 
           i++;
