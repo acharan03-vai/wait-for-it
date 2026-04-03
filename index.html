@@ -232,21 +232,55 @@ body {
 
 <body>
   <!-- 🔑 THE LOGIN WRAPPER -->
-<div id="loginOverlay" style="position:fixed; inset:0; background:#ffffff; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family: sans-serif;">
-    <div style="text-align:center; padding:20px;">
-        <h2 style="color:#2c3e50; font-weight:500; margin-bottom:10px;">Hlo👋👋.. Kindly enter your roll no.</h2>
-        <p style="color:#7f8c8d; font-size:14px; margin-bottom:25px;">Ex: 24AK1A0XXX</p>
-        <div style="display:flex; align-items:center; border:1px solid #bdc3c7; border-radius:4px; overflow:hidden; width:300px; margin: 0 auto; background:#f9f9f9;">
-            <span style="padding:12px; background:#ecf0f1; color:#34495e; font-weight:600; border-right:1px solid #bdc3c7; font-size:16px;">24AK1A0</span>
-            <input type="text" id="rollSuffix" maxlength="3" placeholder="XXX" style="flex:1; border:none; outline:none; padding:12px; font-size:18px; font-weight:600; letter-spacing:3px; text-align:center;">
+<!-- 🔑 THE "OFFICIAL" STUDENT DETAIL PORTAL -->
+<div id="loginOverlay" style="position:fixed; inset:0; background:#f0f2f5; z-index:9999; display:flex; flex-direction:column; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    
+    <!-- Blue Header Bar -->
+    <div style="width:100%; background:#2c3e50; padding:15px 0; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+        <span style="color:white; font-weight:600; letter-spacing:1px; font-size:14px;">STUDENT VERIFICATION SYSTEM (SVS)</span>
+    </div>
+
+    <div style="flex:1; display:flex; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:white; padding:40px 30px; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.08); width:100%; max-width:350px; text-align:center;">
+            
+            <!-- User Avatar Icon -->
+            <div style="width:80px; height:80px; background:#e8f0fe; border-radius:50%; margin:0 auto 20px auto; display:flex; align-items:center; justify-content:center;">
+                <span style="font-size:40px;">👤</span>
+            </div>
+
+            <h2 style="color:#1a73e8; font-size:20px; margin-bottom:8px; font-weight:600;">Student Verification</h2>
+            <p style="color:#5f6368; font-size:13px; margin-bottom:30px;">Please enter your Hall Ticket suffix to fetch out your details from the database.</p>
+            
+            <div style="display:flex; align-items:center; border:2px solid #dadce0; border-radius:8px; overflow:hidden; background:#ffffff;">
+                <span style="padding:14px 12px; background:#f8f9fa; color:#5f6368; font-weight:700; border-right:1px solid #dadce0; font-size:15px;">24AK1A0</span>
+                <input type="text" id="rollSuffix" maxlength="3" placeholder="XXX" 
+                    style="flex:1; border:none; outline:none; padding:14px; font-size:18px; font-weight:700; letter-spacing:4px; text-align:center; color:#202124;">
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 30px;">
+                <button onclick="verifyRoll(event)" 
+                    style="width:100%; padding:14px; background:#1a73e8; color:white; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer; box-shadow:0 4px 6px rgba(26,115,232,0.2);">
+                    PROCEED
+                </button>
+                <button onclick="handleCancel()" 
+                    style="width:100%; padding:10px; background:none; color:#70757a; border:none; font-size:13px; cursor:pointer; text-decoration:underline;">
+                    Cancel Session
+                </button>
+            </div>
+
+            <div style="margin-top:30px; padding-top:20px; border-top:1px solid #eee; display:flex; align-items:center; justify-content:center; gap:8px;">
+                <span style="font-size:14px;">🛡️</span>
+                <span style="font-size:11px; color:#9aa0a6; letter-spacing:0.5px;">SECURED BY UNIVERSITY GATEWAY</span>
+            </div>
         </div>
-        <div style="display: flex; gap: 10px; margin-top: 25px; width: 300px; margin: 25px auto 0 auto;">
-            <button onclick="handleCancel()" style="flex: 1; padding: 12px; background: #fdfdfd; color: #7f8c8d; border: 1px solid #bdc3c7; border-radius: 4px; font-size: 14px; cursor: pointer;">CANCEL</button>
-            <button onclick="verifyRoll(event)" style="flex: 2; padding: 12px; background: #2c3e50; color: #ffffff; border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px;">PROCEED</button>
-        </div>
-        <p style="margin-top:20px; font-size:11px; color:#bdc3c7;">Verification System v1.0.4 | Dept of Engineering</p>
+    </div>
+
+    <!-- Bottom Footer -->
+    <div style="width:100%; padding:15px 0; text-align:center; background:#f8f9fa; border-top:1px solid #dadce0;">
+        <p style="font-size:10px; color:#70757a; margin:0;">© 2026 Examination Cell. All Rights Reserved.</p>
     </div>
 </div>
+
 
 
 <div id="tapToStart">Tap anywhere to start music 🎵🎵</div>
