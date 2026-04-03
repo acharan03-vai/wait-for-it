@@ -29,6 +29,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  touch-action: manipulation;
 }
 
 .stars {
@@ -324,14 +325,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 // This should be sitting alone in your <script> tag, not inside a function
-document.addEventListener("click", () => {
-  console.log("Screen tapped!"); // This helps you debug
+/* 👆 CLICK / TOUCH TO START LOGIC */
+const startEvent = (e) => {
   const overlay = document.getElementById("loginOverlay");
-  
+  // Only trigger if login is hidden
   if (overlay.style.display === "none") {
+      console.log("Start event triggered by:", e.type);
       startExperience();
+      // Remove listeners so they don't fire twice
+      document.removeEventListener("click", startEvent);
+      document.removeEventListener("touchstart", startEvent);
   }
-}, { once: true });
+};
+
+document.addEventListener("click", startEvent);
+document.addEventListener("touchstart", startEvent);
 
 
 /* ⭐ STARS */
