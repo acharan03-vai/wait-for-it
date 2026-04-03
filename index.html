@@ -291,18 +291,16 @@ body {
 function verifyRoll() {
     const suffix = document.getElementById("rollSuffix").value.trim();
     if (suffix === "425" || suffix === "427") {
-        // 1. Hide the login screen
-        document.getElementById("loginOverlay").style.display = "none";
+        const overlay = document.getElementById("loginOverlay");
+        overlay.style.display = "none";
+        overlay.style.pointerEvents = "none"; // <-- ADD THIS LINE
         
-        // 2. Show the birthday content (including "Tap to start music")
         document.getElementById("mainContent").style.display = "block";
-        
-        // 3. WE DO NOT CALL startExperience() HERE.
-        // We wait for her to tap the "Tap to Start" screen manually.
     } else {
         showErrorPage();
     }
 }
+
 
 
 function handleCancel() {
@@ -325,12 +323,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "Enter") verifyRoll();
     });
 });
+// This should be sitting alone in your <script> tag, not inside a function
 document.addEventListener("click", () => {
-  // Only start if the login overlay is hidden
-  if (document.getElementById("loginOverlay").style.display === "none") {
+  console.log("Screen tapped!"); // This helps you debug
+  const overlay = document.getElementById("loginOverlay");
+  
+  if (overlay.style.display === "none") {
       startExperience();
   }
 }, { once: true });
+
 
 /* ⭐ STARS */
 const stars = document.getElementById("stars");
