@@ -29,7 +29,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  touch-action: manipulation;
 }
 
 .stars {
@@ -258,23 +257,6 @@ body {
 </head>
 
 <body>
-<div id="loginOverlay" style="position:fixed; inset:0; background:#ffffff; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family: sans-serif;">
-    <div style="text-align:center; padding:20px;">
-        <h2 style="color:#2c3e50; font-weight:500; margin-bottom:10px;">Hlo👋👋.. Kindly enter your roll no.</h2>
-        <p style="color:#7f8c8d; font-size:14px; margin-bottom:25px;">Ex: 24AK1A0XXX</p>
-        <div style="display:flex; align-items:center; border:1px solid #bdc3c7; border-radius:4px; overflow:hidden; width:300px; margin: 0 auto; background:#f9f9f9;">
-            <span style="padding:12px; background:#ecf0f1; color:#34495e; font-weight:600; border-right:1px solid #bdc3c7; font-size:16px;">24AK1A0</span>
-            <input type="text" id="rollSuffix" maxlength="3" placeholder="XXX" style="flex:1; border:none; outline:none; padding:12px; font-size:18px; font-weight:600; letter-spacing:3px; text-align:center;">
-        </div>
-        <div style="display: flex; gap: 10px; margin-top: 25px; width: 300px; margin: 25px auto 0 auto;">
-            <button onclick="handleCancel()" style="flex: 1; padding: 12px; background: #fdfdfd; color: #7f8c8d; border: 1px solid #bdc3c7; border-radius: 4px; font-size: 14px; cursor: pointer;">CANCEL</button>
-            <button onclick="verifyRoll()" style="flex: 2; padding: 12px; background: #2c3e50; color: #ffffff; border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px;">PROCEED</button>
-        </div>
-        <p style="margin-top:20px; font-size:11px; color:#bdc3c7;">Verification System v1.0.4 | Dept of Engineering</p>
-    </div>
-</div>
-
-<div id="mainContent" style="display:none; width:100%; height:100%;">
 
 <div id="tapToStart">Tap anywhere to start music 🎵🎵</div>
 <div class="stars" id="stars"></div>
@@ -285,63 +267,8 @@ body {
 <div id="blackout"></div>
 <audio id="bgm" src="tanya.mp3" preload="auto" loop></audio>
 <div id="replay-hint">Malli chudaala..?? 🌟🌟<span>Tap the screen thrice ✨✨</span></div>
-</div> <!-- This closes the mainContent div -->
 
 <script>
-  /* 🔑 ACCESS CONTROL LOGIC */
-function verifyRoll() {
-    const suffix = document.getElementById("rollSuffix").value.trim();
-    if (suffix === "425" || suffix === "427") {
-        const overlay = document.getElementById("loginOverlay");
-        overlay.style.display = "none";
-        overlay.style.pointerEvents = "none"; // <-- ADD THIS LINE
-        
-        document.getElementById("mainContent").style.display = "block";
-    } else {
-        showErrorPage();
-    }
-}
-
-
-
-function handleCancel() {
-    showErrorPage();
-}
-
-function showErrorPage() {
-    document.body.innerHTML = `
-        <div style="text-align:center; margin-top:20%; font-family: sans-serif; background: #fff; height: 100vh; width:100vw; position:fixed; inset:0; z-index:10000;">
-            <h1 style="font-size:72px; color:#555; margin:0;">404</h1>
-            <p style="font-size:24px; color:#888;">The page you were trying to reach doesn't exist.</p>
-            <p style="color:#aaa;">Directory: /internal/student_portal/index.php</p>
-        </div>
-    `;
-}
-
-// Support for Enter Key
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("rollSuffix").addEventListener("keypress", (e) => {
-        if (e.key === "Enter") verifyRoll();
-    });
-});
-// This should be sitting alone in your <script> tag, not inside a function
-/* 👆 CLICK / TOUCH TO START LOGIC */
-const startEvent = (e) => {
-  const overlay = document.getElementById("loginOverlay");
-  // Only trigger if login is hidden
-  if (overlay.style.display === "none") {
-      console.log("Start event triggered by:", e.type);
-      startExperience();
-      // Remove listeners so they don't fire twice
-      document.removeEventListener("click", startEvent);
-      document.removeEventListener("touchstart", startEvent);
-  }
-};
-
-document.addEventListener("click", startEvent);
-document.addEventListener("touchstart", startEvent);
-
-
 /* ⭐ STARS */
 const stars = document.getElementById("stars");
 for (let i = 0; i < 70; i++) {
@@ -389,7 +316,8 @@ async function startExperience() {
 }
 
 
-
+// Single reliable event listener for mobile
+document.addEventListener("click", startExperience, { once: true });
 
 /* 📝 TEXT */
 const lines = [
@@ -567,10 +495,8 @@ document.addEventListener("touchstart", function() {
   }
 });
 
-  
 
 </script>
-
 </body>
 
   
