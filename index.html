@@ -226,32 +226,6 @@ body {
 }
 /* 🌟 REPLAY HINT STYLE */
 #replay-hint {
-  position: fixed;
-  bottom: 35%; 
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ffd700; 
-  font-family: 'Dancing Script', cursive;
-  font-size: 22px;
-  text-align: center;
-  width: 90%;
-  text-shadow: 0 0 10px rgba(255, 214, 0, 0.8), 0 0 20px orange; 
-  display: none; 
-  z-index: 1000;
-  animation: blinkGlow 3s infinite ease-in-out;
-  line-height: 1.6;
-}
-
-#replay-hint span {
-  font-size: 14px; 
-  opacity: 0.8;
-  display: block;
-}
-
-@keyframes blinkGlow {
-  0%, 100% { opacity: 0.2; filter: blur(1px); transform: translateX(-50%) scale(0.95); }
-  50% { opacity: 1; filter: blur(0px); transform: translateX(-50%) scale(1); }
-}
 
 </style>
 </head>
@@ -266,7 +240,10 @@ body {
 </div>
 <div id="blackout"></div>
 <audio id="bgm" src="tanya.mp3" preload="auto" loop></audio>
-<div id="replay-hint">Malli chudaala..?? 🌟🌟<span>Tap the screen thrice ✨✨</span></div>
+<!-- 🔄 REPLAY BUTTON -->
+<button id="replayBtn" onclick="location.reload()" style="display:none; position:fixed; bottom:25%; left:50%; transform:translateX(-50%); padding:15px 30px; background:rgba(255, 215, 0, 0.05); color:#ffd700; border:1.5px solid #ffd700; border-radius:50px; font-family:'Dancing Script', cursive; font-size:22px; cursor:pointer; z-index:1000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); opacity: 0; transition: opacity 1.5s ease; white-space: nowrap;">
+  Malli chudali anipisthe...? ✨✨🌟🌟
+</button>
 
 <script>
 /* ⭐ STARS */
@@ -429,17 +406,20 @@ function showLine() {
     if (i >= lines.length) {
     music.pause();
     setTimeout(() => {
-      // 1. First, the screen turns black
-      document.getElementById("blackout").classList.add("show");
-      
-      // 2. Then, show the Telugu hint after 3 seconds
-      setTimeout(() => {
-        document.getElementById("replay-hint").style.display = "block";
-      }, 1000); 
-      
+        // 1. Screen turns black
+        document.getElementById("blackout").classList.add("show");
+        
+        // 2. Show the Telugu Replay Button after a 2-second pause
+        setTimeout(() => {
+            const btn = document.getElementById("replayBtn");
+            btn.style.display = "block";
+            // Trigger the fade-in
+            setTimeout(() => { btn.style.opacity = "1"; }, 100);
+        }, 2000); 
+        
     }, 800);
     return;
-  }
+}
 
 
   // Clear previous classes
@@ -481,19 +461,6 @@ function showLine() {
     showLine();
   }, 5500); 
 }
-/* 👆 TRIPLE TAP DETECTOR */
-let tapCount = 0;
-let tapTimer;
-
-document.addEventListener("touchstart", function() {
-  tapCount++;
-  clearTimeout(tapTimer);
-  tapTimer = setTimeout(() => { tapCount = 0; }, 500);
-
-  if (tapCount === 3) {
-    location.reload(); 
-  }
-});
 
 
 </script>
