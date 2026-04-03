@@ -4,259 +4,54 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ===== YOUR ORIGINAL CSS (UNCHANGED) ===== */
+/* 1. STYLING THE MAGICAL CONTENT */
 html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
   font-family: 'Dancing Script', cursive;
 }
-
 body {
-  margin: 0;
-  min-height: 100vh;
+  margin: 0; min-height: 100vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)),url("./1.avif");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-size: cover; background-position: center; display: flex;
+  justify-content: center; align-items: center;
 }
-
-.stars {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
+.stars { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
 #tapToStart {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 16px;
-  color: #f5e6a8;
-  text-align: center;
-  z-index: 5;
-  animation: blink 1.5s infinite;
+  position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+  font-size: 16px; color: #f5e6a8; text-align: center; z-index: 5; animation: blink 1.5s infinite;
 }
-
-@keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0.3; }
-  100% { opacity: 1; }
-}
-
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 .star {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: white;
-  box-shadow: 0 0 12px white, 0 0 30px gold;
-  animation: floatStar linear infinite, twinkle 2.5s ease-in-out infinite;
+  position: absolute; width: 6px; height: 6px; border-radius: 50%; background: white;
+  box-shadow: 0 0 12px white, 0 0 30px gold; animation: floatStar linear infinite, twinkle 2.5s ease-in-out infinite;
 }
-
-@keyframes floatStar {
-  from { transform: translateY(100vh); }
-  to { transform: translateY(-10vh); }
-}
-
-@keyframes twinkle {
-  0%,100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
+@keyframes floatStar { from { transform: translateY(100vh); } to { transform: translateY(-10vh); } }
+@keyframes twinkle { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 .sparkle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: gold;
-  border-radius: 50%;
-  pointer-events: none;
-  box-shadow: 0 0 15px gold, 0 0 30px orange;
-  animation: sparkleMove 1.8s ease-out forwards;
+  position: absolute; width: 6px; height: 6px; background: gold; border-radius: 50%;
+  pointer-events: none; box-shadow: 0 0 15px gold, 0 0 30px orange; animation: sparkleMove 1.8s ease-out forwards;
 }
-
-@keyframes sparkleMove {
-  from { transform: scale(1) translate(0,0); opacity: 1; }
-  to { transform: scale(0) translate(var(--x), var(--y)); opacity: 0; }
-}
-
-#container {
-  text-align: center;
-  color: #f5e6a8;
-  text-shadow: 0 0 8px rgba(255, 215, 100, 0.6);
-  max-width: 90%;
-  z-index: 2;
-}
-
-
-/* 🌟 INTENSE MAGICAL GLOW */
-.glow {
-  color: #fff3b0; /* Warmer white for a premium look */
-  text-shadow: 0 0 20px rgba(255, 215, 100, 0.9), 0 0 40px rgba(255, 255, 255, 0.6);
-  animation: breathe 2.5s ease-in-out infinite; /* Slightly faster for more "life" */
-}
-
-@keyframes breathe {
-  0%, 100% { 
-    text-shadow: 0 0 15px rgba(255, 215, 100, 0.7), 0 0 30px rgba(255, 255, 255, 0.4);
-    transform: scale(1);
-  }
-  50% { 
-    text-shadow: 0 0 35px rgba(255, 215, 100, 1), 0 0 60px rgba(255, 255, 255, 0.8), 0 0 80px rgba(255, 215, 0, 0.5);
-    transform: scale(1.02); /* Very subtle pulse */
-  }
-}
-
-/* ✨ ENHANCED MAGICAL SHOW */
-.magical-show {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  filter: blur(0) !important;
-  /* Added a triple-layer shadow for depth */
-  text-shadow: 0 0 20px gold, 0 0 40px white, 0 0 60px orange;
-}
-
-
-.highlight {
-  color: #ffd700;
-  font-size: 1.5em;
-  font-weight: 600;
-  text-shadow: 0 0 6px #ffd700, 0 0 12px rgba(255, 215, 0, 0.9);
-}
-
-/* ===== ✍️ NEW HANDWRITING MAGIC (ONLY ADDITION) ===== */
-.handwrite {
-  font-size: 1.6rem;
-  color: #fff3b0;
-  text-shadow: 0 0 35px gold, 0 0 70px orange;
-}
-
-.cursor {
-  display: inline-block;
-  margin-left: 5px;
-  animation: blinkCursor 1s infinite;
-}
-
-@keyframes blinkCursor {
-  0% { opacity: 1; }
-  50% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-.fadeOut {
-  animation: fadeOut 1.5s ease forwards;
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; }
-  }
-/* ✨ MAGICAL TEXT ANIMATION */
-#line {
-  font-size: 1.35rem; /* Slightly larger for easier reading */
-  line-height: 1.7;
-  opacity: 0;
-  transition: all 1.5s ease; /* Smooth transition for all properties */
-  transform: translateY(10px); /* Starts slightly lower */
-  filter: blur(5px); /* Starts blurry */
-}
-.magical-show {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  filter: blur(0) !important;
-  text-shadow: 0 0 15px rgba(255, 215, 100, 0.8), 0 0 25px rgba(255, 255, 255, 0.5);
-}
-
-.magical-hide {
-  opacity: 0 !important;
-  transform: translateY(-10px) !important;
-  filter: blur(10px) !important;
-}
-.flicker-name {
-  color: #ffd700;
-  font-weight: bold;
-  text-shadow: 0 0 25px gold, 0 0 50px white;
-  transition: all 0.1s ease-in-out;
-  display: inline-block;
-}
-
-
-  
-/* 🌑 FINAL BLACKOUT */
-#blackout {
-  position: fixed;
-  inset: 0;
-  background: black;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 3.5s ease;
-  z-index: 20;
-}
-
-#blackout.show {
-  opacity: 1;
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(110vh) translateX(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-20vh) translateX(20px);
-    opacity: 0;
-  }
-}
-/* 🌟 REPLAY HINT STYLE */
-#replay-hint {
-  position: fixed;
-  bottom: 35%; 
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ffd700; 
-  font-family: 'Dancing Script', cursive;
-  font-size: 22px;
-  text-align: center;
-  width: 90%;
-  text-shadow: 0 0 10px rgba(255, 214, 0, 0.8), 0 0 20px orange; 
-  display: none; 
-  z-index: 1000;
-  animation: blinkGlow 3s infinite ease-in-out;
-  line-height: 1.6;
-}
-
-#replay-hint span {
-  font-size: 14px; 
-  opacity: 0.8;
-  display: block;
-}
-
-@keyframes blinkGlow {
-  0%, 100% { opacity: 0.2; filter: blur(1px); transform: translateX(-50%) scale(0.95); }
-  50% { opacity: 1; filter: blur(0px); transform: translateX(-50%) scale(1); }
-}
-
+@keyframes sparkleMove { from { transform: scale(1) translate(0,0); opacity: 1; } to { transform: scale(0) translate(var(--x), var(--y)); opacity: 0; } }
+#container { text-align: center; color: #f5e6a8; text-shadow: 0 0 8px rgba(255, 215, 100, 0.6); max-width: 90%; z-index: 2; }
+.highlight { color: #ffd700; font-size: 1.5em; font-weight: 600; text-shadow: 0 0 6px #ffd700; }
+.handwrite { font-size: 1.6rem; color: #fff3b0; text-shadow: 0 0 35px gold, 0 0 70px orange; }
+.cursor { display: inline-block; margin-left: 5px; animation: blink 1s infinite; }
+#line { font-size: 1.35rem; line-height: 1.7; opacity: 0; transition: all 1.5s ease; transform: translateY(10px); filter: blur(5px); }
+.magical-show { opacity: 1 !important; transform: translateY(0) !important; filter: blur(0) !important; text-shadow: 0 0 15px gold; }
+.magical-hide { opacity: 0 !important; transform: translateY(-10px) !important; filter: blur(10px) !important; }
+.flicker-name { color: #ffd700; font-weight: bold; text-shadow: 0 0 25px gold; display: inline-block; }
+#blackout { position: fixed; inset: 0; background: black; opacity: 0; pointer-events: none; transition: opacity 3.5s ease; z-index: 20; }
+#blackout.show { opacity: 1; }
+#replay-hint { position: fixed; bottom: 35%; left: 50%; transform: translateX(-50%); color: #ffd700; font-size: 22px; text-align: center; display: none; z-index: 1000; }
 </style>
 </head>
 
 <body>
+
+<!-- 🔒 STEP 1: THE FORMAL LOGIN (WHITE SCREEN) -->
 <div id="loginOverlay" style="position:fixed; inset:0; background:#ffffff; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family: sans-serif;">
     <div style="text-align:center; padding:20px;">
         <h2 style="color:#2c3e50; font-weight:500; margin-bottom:10px;">Hlo👋👋.. Kindly enter your roll no.</h2>
@@ -273,59 +68,37 @@ body {
     </div>
 </div>
 
+<!-- 🎁 STEP 2: THE BIRTHDAY CONTENT (HIDDEN UNTIL LOGIN) -->
 <div id="mainContent" style="display:none; width:100%; height:100%;">
-
-<div id="tapToStart">Tap anywhere to start music 🎵🎵</div>
-<div class="stars" id="stars"></div>
-
-<div id="container">
-  <div id="line"></div>
+    <div id="tapToStart">Tap anywhere to start music 🎵🎵</div>
+    <div class="stars" id="stars"></div>
+    <div id="container"><div id="line"></div></div>
+    <div id="blackout"></div>
+    <audio id="bgm" src="tanya.mp3" preload="auto" loop></audio>
+    <div id="replay-hint">Malli chudaala..?? 🌟🌟<span>Tap the screen thrice ✨✨</span></div>
 </div>
-<div id="blackout"></div>
-<audio id="bgm" src="tanya.mp3" preload="auto" loop></audio>
-<div id="replay-hint">Malli chudaala..?? 🌟🌟<span>Tap the screen thrice ✨✨</span></div>
 
 <script>
-  /* 🔑 ACCESS CONTROL LOGIC */
+// --- ACCESS LOGIC ---
 function verifyRoll() {
     const suffix = document.getElementById("rollSuffix").value.trim();
     if (suffix === "425" || suffix === "427") {
-        // 1. Hide the login screen
         document.getElementById("loginOverlay").style.display = "none";
-        
-        // 2. Show the birthday content (including "Tap to start music")
         document.getElementById("mainContent").style.display = "block";
-        
-        // 3. WE DO NOT CALL startExperience() HERE.
-        // We wait for her to tap the "Tap to Start" screen manually.
     } else {
         showErrorPage();
     }
 }
-
-
-function handleCancel() {
-    showErrorPage();
-}
-
+function handleCancel() { showErrorPage(); }
 function showErrorPage() {
-    document.body.innerHTML = `
-        <div style="text-align:center; margin-top:20%; font-family: sans-serif; background: #fff; height: 100vh; width:100vw; position:fixed; inset:0; z-index:10000;">
-            <h1 style="font-size:72px; color:#555; margin:0;">404</h1>
-            <p style="font-size:24px; color:#888;">The page you were trying to reach doesn't exist.</p>
-            <p style="color:#aaa;">Directory: /internal/student_portal/index.php</p>
-        </div>
-    `;
+    document.body.innerHTML = `<div style="text-align:center; margin-top:20%; font-family: sans-serif; background: #fff; height: 100vh; width:100vw; position:fixed; inset:0; z-index:10000;">
+        <h1 style="font-size:72px; color:#555; margin:0;">404</h1>
+        <p style="font-size:24px; color:#888;">The page you were trying to reach doesn't exist.</p>
+        <p style="color:#aaa;">Directory: /internal/student_portal/index.php</p>
+    </div>`;
 }
 
-// Support for Enter Key
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("rollSuffix").addEventListener("keypress", (e) => {
-        if (e.key === "Enter") verifyRoll();
-    });
-});
-document.addEventListener("click", startExperience, { once: true });
-/* ⭐ STARS */
+// --- STARS & SPARKLES ---
 const stars = document.getElementById("stars");
 for (let i = 0; i < 70; i++) {
   const s = document.createElement("div");
@@ -335,14 +108,11 @@ for (let i = 0; i < 70; i++) {
   s.style.animationDuration = (6 + Math.random() * 6) + "s";
   stars.appendChild(s);
 }
-
-/* ✨ SPARKLES */
 function createSparkles() {
   for (let i = 0; i < 40; i++) {
     const sp = document.createElement("div");
     sp.className = "sparkle";
-    sp.style.left = "50%";
-    sp.style.top = "50%";
+    sp.style.left = "50%"; sp.style.top = "50%";
     sp.style.setProperty("--x", (Math.random()*300 - 150) + "px");
     sp.style.setProperty("--y", (Math.random()*300 - 150) + "px");
     document.body.appendChild(sp);
@@ -350,211 +120,90 @@ function createSparkles() {
   }
 }
 
-/* 🎵 MUSIC & TEXT SYNCED START */
+// --- MUSIC & REVEAL ---
 const music = document.getElementById("bgm");
 const tapText = document.getElementById("tapToStart");
 let started = false;
 
-// Pre-load the file
-music.load();
+document.addEventListener("click", () => {
+    // Only start if login is gone and we haven't started yet
+    if (!started && document.getElementById("loginOverlay").style.display === "none") {
+        started = true;
+        tapText.style.display = "none";
+        music.play().catch(() => {});
+        showLine();
+    }
+});
 
-async function startExperience() {
-  if (started) return;
-  started = true;
-  tapText.style.display = "none";
-  try {
-    await music.play();
-    showLine();
-  } catch (err) {
-    console.log("Audio blocked, starting text anyway")
-    showLine();
-  }
-}
-
-
-
-
-/* 📝 TEXT */
 const lines = [
-  "Hii... Naku chinna help kaavali chesthaava pls..??",
-  "Today is 10th April..",
-  "Em ledhu ee roju mana class lo oka ammayii birthday😌..",
-  "So konchem naa wishes thanaki convey chesthaava pls..",
-  "Thanu..Yevaro telusa neeku..🤨🤨", 
-  "<span class='highlight'>C</span>huseki chaala silent gaa untundhi, but from",
-  "<span class='highlight'>H</span>eart chaala ante chaala manchidhi..",
-  "<span class='highlight'>A</span>anandhanga frnds tho kalisi muchatlo petukovadam ante chaaala",
-  "<span class='highlight'>I</span>stam , andharu manchiga undaali ane korukuntundhi..",
-  "<span class='highlight'>T</span>hanu baadhalo unaa sare just oka smile ichi move on aipothundhi..",
-  "<span class='highlight'>A</span>mazing character.. Totally different and matured",
-  "<span class='highlight'>N</span>aaku telisinantha varaku thanaki ZERO EGO",
-  "<span class='highlight'>Y</span>e okarini mosam cheyadhu, chaala loyal.. Thanu",
-  "<span class='highlight'>A</span>nukunte thanakana best inkevaaru undaaru..",
-  "To someone I have known for about an year..",
-  "To someone whom I have rarely seen on an angry mode..",
-  "To someone who is never selfish..",
-  "To someone who is always humble and kind..",
-  "To that one particular person who hasn't changed with time..",
-  "And most importantly..",
-  "To my friend..",
-  "__HANDWRITE__",
-  "May you be blessed with THE BEST things in your life..",
-  "May all your dreams come true.. Still a long way to go..",
-  "Health jaagratha..",
-  "Yeppudu ye vishayam gurinchi alochinchi low ga feel avaku..",
-  "Yedhi jarigina mana manchike jaruguthundhi ani positive gaa tisko..",
-  "And like always… Be happy.. Have that smile on your face.",
-  "Never let anything / anyone fade it away.",
-  "Ok na...",
-  "All the very best for ur life...",
-  "Always be strong..",
-  "Enjoy every single moment of ur life..",
-  " Because the sweetest memories are from.. ", 
-  " The smallest moments.. ", 
-  "Byeee.. Enjoy your day..."
+  "Hii... Naku chinna help kaavali chesthaava pls..??", "Today is 10th April..",
+  "Em ledhu ee roju mana class lo oka ammayii birthday😌..", "So konchem naa wishes thanaki convey chesthaava pls..",
+  "Thanu..Yevaro telusa neeku..🤨🤨", "<span class='highlight'>C</span>huseki chaala silent gaa untundhi, but from",
+  "<span class='highlight'>H</span>eart chaala ante chaala manchidhi..", "<span class='highlight'>A</span>anandhanga frnds tho kalisi muchatlo petukovadam ante chaaala",
+  "<span class='highlight'>I</span>stam , andharu manchiga undaali ane korukuntundhi..", "<span class='highlight'>T</span>hanu baadhalo unaa sare just oka smile ichi move on aipothundhi..",
+  "<span class='highlight'>A</span>mazing character.. Totally different and matured", "<span class='highlight'>N</span>aaku telisinantha varaku thanaki ZERO EGO",
+  "<span class='highlight'>Y</span>e okarini mosam cheyadhu, chaala loyal.. Thanu", "<span class='highlight'>A</span>nukunte thanakana best inkevaaru undaaru..",
+  "To someone I have known for about an year..", "To someone whom I have rarely seen on an angry mode..",
+  "To someone who is never selfish..", "To someone who is always humble and kind..",
+  "To that one particular person who hasn't changed with time..", "And most importantly..",
+  "To my friend..", "__HANDWRITE__", "May you be blessed with THE BEST things in your life..",
+  "May all your dreams come true.. Still a long way to go..", "Health jaagratha..",
+  "Yeppudu ye vishayam gurinchi alochinchi low ga feel avaku..", "Yedhi jarigina mana manchike jaruguthundhi ani positive gaa tisko..",
+  "And like always… Be happy.. Have that smile on your face.", "Never let anything / anyone fade it away.",
+  "Ok na...", "All the very best for ur life...", "Always be strong..",
+  "Enjoy every single moment of ur life..", " Because the sweetest memories are from.. ", " The smallest moments.. ", "Byeee.. Enjoy your day..."
 ];
 
 let i = 0;
 const lineDiv = document.getElementById("line");
 
 function handWrite(dummyText, callback) {
-  let idx = 0;
-  const baseText = "Wishing you many more happy returns of the day ";
-  
-  // 🎬 REVISED ORDER: Japanese -> Hindi -> Malayalam -> Kannada -> Tamil -> Telugu -> English
-  const names = [
-    "チャイタニヤ", // Japanese
-    "चैतन्या",      // Hindi
-    "ചൈതന്യ",      // Malayalam
-    "ಚೈತನ್ಯ",      // Kannada
-    "சைதன்யா",      // Tamil
-    "చైతన్య",      // Telugu
-    "Chaitanya"    // English Finale
-  ]; 
-  
+  let idx = 0; const baseText = "Wishing you many more happy returns of the day ";
+  const names = ["チャイタニヤ", "चैतन्या", "ചൈതന്യ", "ಚೈತನ್ಯ", "சைதன்யா", "చైతన్య", "Chaitanya"];
   lineDiv.innerHTML = `<span class="handwrite"></span><span class="cursor">✍️</span>`;
   const span = lineDiv.querySelector(".handwrite");
-
   function type() {
-    if (idx < baseText.length) {
-      span.innerHTML += baseText.charAt(idx);
-      idx++;
-      setTimeout(type, 110); 
+    if (idx < baseText.length) { span.innerHTML += baseText.charAt(idx); idx++; setTimeout(type, 110);
     } else {
-      let nameIdx = 0;
-      
-      // 🎬 CINEMATIC FLICKER LOGIC
-      const flickerInterval = setInterval(() => {
-        // Find or create the name container
-        let nameSpan = span.querySelector(".flicker-name");
-        if (!nameSpan) {
-          nameSpan = document.createElement("span");
-          nameSpan.className = "flicker-name";
-          span.appendChild(nameSpan);
-        }
-        
+      let nameIdx = 0; const flickerInterval = setInterval(() => {
+        let nameSpan = span.querySelector(".flicker-name") || document.createElement("span");
+        nameSpan.className = "flicker-name"; span.appendChild(nameSpan);
         nameSpan.innerHTML = names[nameIdx];
-
-        if (nameIdx < names.length - 1) {
-          nameIdx++;
-        } else {
-          // 🏁 STOP THE FLICKER ON "Chaitanya"
+        if (nameIdx < names.length - 1) { nameIdx++; } else {
           clearInterval(flickerInterval);
-          
-          // Wait for the name to settle before adding emojis
-          setTimeout(() => {
+          setTimeout(() => { 
             if(lineDiv.querySelector(".cursor")) lineDiv.querySelector(".cursor").remove();
-            span.innerHTML += " 🥳🥳💐💐";
-            createSparkles();
-            
-            // Keep the full line on screen for 4.2s
-            setTimeout(callback, 4200);
-          }, 1000); 
+            span.innerHTML += " 🥳🥳💐💐"; createSparkles(); setTimeout(callback, 4200); 
+          }, 1000);
         }
-      }, 800); // 🕒 0.8s is the perfect "cinematic" speed
+      }, 800);
     }
   }
   type();
 }
 
-
-
-/* 📝 UPDATED MAGICAL SHOWLINE FUNCTION */
 function showLine() {
-    if (i >= lines.length) {
-    music.pause();
-    setTimeout(() => {
-      // 1. First, the screen turns black
-      document.getElementById("blackout").classList.add("show");
-      
-      // 2. Then, show the Telugu hint after 3 seconds
-      setTimeout(() => {
-        document.getElementById("replay-hint").style.display = "block";
-      }, 1000); 
-      
-    }, 800);
-    return;
-  }
-
-
-  // Clear previous classes
+  if (i >= lines.length) { music.pause(); document.getElementById("blackout").classList.add("show"); setTimeout(() => { document.getElementById("replay-hint").style.display = "block"; }, 1000); return; }
   lineDiv.className = "";
-  
-  // ✍️ Keep handwriting line exactly as it was
   if (lines[i] === "__HANDWRITE__") {
-    lineDiv.style.transform = "none";
-    lineDiv.style.filter = "none";
-    lineDiv.style.opacity = 1;
-    
-    handWrite("", () => {
-        setTimeout(() => {
-          lineDiv.classList.add("magical-hide"); 
-          i++;
-          setTimeout(showLine, 2000);
-        }, 2500);
-    });
+    lineDiv.style.opacity = 1; lineDiv.style.filter = "none";
+    handWrite("", () => { lineDiv.classList.add("magical-hide"); i++; setTimeout(showLine, 2000); });
     return;
   }
-
-  // 🌟 Magical animation for all other lines
   lineDiv.innerHTML = lines[i];
-  
-  // Trigger Entrance (Blur to Clear)
-  setTimeout(() => {
-    lineDiv.classList.add("magical-show");
-  }, 100);
-
-  // Trigger Exit (Blur Out)
-  setTimeout(() => {
-    lineDiv.classList.remove("magical-show");
-    lineDiv.classList.add("magical-hide");
-  }, 4000);
-
-  // Move to next line
-  setTimeout(() => {
-    i++;
-    showLine();
-  }, 5500); 
+  setTimeout(() => { lineDiv.classList.add("magical-show"); }, 100);
+  setTimeout(() => { lineDiv.classList.remove("magical-show"); lineDiv.classList.add("magical-hide"); }, 4000);
+  setTimeout(() => { i++; showLine(); }, 5500);
 }
-/* 👆 TRIPLE TAP DETECTOR */
-let tapCount = 0;
-let tapTimer;
 
-document.addEventListener("touchstart", function() {
-  tapCount++;
-  clearTimeout(tapTimer);
-  tapTimer = setTimeout(() => { tapCount = 0; }, 500);
-
-  if (tapCount === 3) {
-    location.reload(); 
-  }
+// Enter key support
+document.getElementById("rollSuffix").addEventListener("keypress", (e) => { if (e.key === "Enter") verifyRoll(); });
+// Triple tap replay
+let tCount = 0; let tTimer;
+document.addEventListener("touchstart", () => {
+  tCount++; clearTimeout(tTimer); tTimer = setTimeout(() => { tCount = 0; }, 500);
+  if (tCount === 3) location.reload();
 });
-
-
 </script>
-  </div> <!-- This closes the mainContent div -->
-
 </body>
-
-  
 </html>
